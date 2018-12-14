@@ -29,11 +29,8 @@ import GHC.Generics
 
 import AlignmentUtil
 import Alignment
-import AlignmentSubstrate
-import AlignmentDistribution
 import AlignmentApprox
 import AlignmentRandom
-import AlignmentCoder
 import AlignmentPracticable
 import AlignmentPracticableIO
 import AlignmentAeson
