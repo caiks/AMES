@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, OverloadedStrings, BangPatterns, ScopedTypeVariables,FlexibleInstances #-}
+{-# LANGUAGE DeriveGeneric, OverloadedStrings, BangPatterns #-}
 
 module AMESDev
 where
@@ -44,12 +44,6 @@ import AlignmentPracticableRepa
 import AlignmentPracticableIORepa
 import AlignmentDevRepa hiding (aahr)
 
-class ToValue a where
-  toValue :: a -> Value
-
-instance ToValue [Char] where
-  toValue = ValStr
-
 data IntOrNull = IntOrNullInt Int | IntOrNullNull deriving Show
 
 instance FromField IntOrNull where
@@ -59,7 +53,7 @@ instance FromField IntOrNull where
 
 instance ToValue IntOrNull where
   toValue IntOrNullNull = ValStr "null"
-  toValue (IntOrNullInt i) = ValInt (toInteger i)
+  toValue (IntOrNullInt i) = toValue i
 
 data DoubleOrNull = DoubleOrNullDouble Double | DoubleOrNullNull deriving Show
 
@@ -70,7 +64,7 @@ instance FromField DoubleOrNull where
 
 instance ToValue DoubleOrNull where
   toValue DoubleOrNullNull = ValStr "null"
-  toValue (DoubleOrNullDouble d) = ValDouble d
+  toValue (DoubleOrNullDouble d) = toValue d
 
 data Train = Train { 
   trId :: !IntOrNull,
@@ -408,19 +402,19 @@ temap = [
   ("SaleType", toValue . teSaleType),
   ("SaleCondition", toValue . teSaleCondition)]
 
-isord uu v = or (Set.map isordval (fromJust (systemsVarsValues uu v)))
+isOrd uu v = or (Set.map isOrdVal (fromJust (systemsVarsValues uu v)))
   where
-    isordval (ValInt _) = True
-    isordval (ValDouble _) = True
-    isordval _ = False
+    isOrdVal (ValInt _) = True
+    isOrdVal (ValDouble _) = True
+    isOrdVal _ = False
 
-valreduce k aa v = 
-    Map.fromList $ reverse $ concat [zip jj (repeat (last jj)) | jj <- bucket (length ll `div` k) ll]
+bucket b aa v = 
+    Map.fromList $ reverse $ concat [zip jj (repeat (last jj)) | jj <- slice (length ll `div` b) ll]
   where 
     ll = sort $ map (snd . head . ssll) $ snd $ unzip $ hhll $ aahh (aa `red` sgl v)
-    bucket b ll 
-      | length ll < b = [ll] 
-      | otherwise = take b ll : bucket b (drop b ll)
+    slice k ll 
+      | length ll < k = [ll] 
+      | otherwise = take k ll : slice k (drop k ll)
 
 reframeb aa xx =
     llaa $ map (\(ss,q) -> (repl ss xx, q)) $ aall aa
