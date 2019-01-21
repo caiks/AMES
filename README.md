@@ -4,7 +4,7 @@ This repository contains tests of the [AlignmentRepa repository](https://github.
 
 ## Documentation
 
-There is an analysis of this dataset [here](https://greenlake.co.uk/pages/dataset_AMES), with sections (a) [predicting edibility without modelling](https://greenlake.co.uk/pages/dataset_AMES#Predicting_edibility_without_modelling), (b) [predicting odor without modelling](https://greenlake.co.uk/pages/dataset_AMES#Predicting_odor_without_modelling), (c) [manual modelling of edibility](https://greenlake.co.uk/pages/dataset_AMES#Manual_modelling_of_edibility) and (d) [induced modelling of edibility](https://greenlake.co.uk/pages/dataset_AMES#Induced_modelling_of_edibility). 
+There is an analysis of this dataset [here](https://greenlake.co.uk/pages/dataset_AMES), with sections (a) [predicting sale price without modelling](https://greenlake.co.uk/pages/dataset_AMES#Predicting_sale price_without_modelling) and (b) [induced modelling of sale price](https://greenlake.co.uk/pages/dataset_AMES#Induced_modelling_of_sale price). 
 
 ## Installation
 
@@ -104,7 +104,11 @@ let aatrb = reframeb aatr xx
 
 size aatrb
 
-let uub = sys aab `uunion` sys aatrb
+let aateb = reframeb aate xx
+
+size aateb
+
+let uub = sys aab `uunion` sys aatrb `uunion` sys aateb
 let vvb = uvars uub `minus` sgl (VarStr "Id")
 let vvbl = sgl (VarStr "SalePriceB")
 let vvbk = vvb `minus` vvbl
