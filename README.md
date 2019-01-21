@@ -4,7 +4,7 @@ This repository contains tests of the [AlignmentRepa repository](https://github.
 
 ## Documentation
 
-There is an analysis of this dataset [here](https://greenlake.co.uk/pages/dataset_AMES), with sections (a) [predicting sale price without modelling](https://greenlake.co.uk/pages/dataset_AMES#Predicting_sale price_without_modelling) and (b) [induced modelling of sale price](https://greenlake.co.uk/pages/dataset_AMES#Induced_modelling_of_sale price). 
+There is an analysis of this dataset [here](https://greenlake.co.uk/pages/dataset_AMES), with sections (a) [predicting sale price without modelling](https://greenlake.co.uk/pages/dataset_AMES#Predicting_sale_price_without_modelling) and (b) [induced modelling of sale price](https://greenlake.co.uk/pages/dataset_AMES#Induced_modelling_of_sale_price). 
 
 ## Installation
 
