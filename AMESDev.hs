@@ -429,5 +429,49 @@ decomperIO uu vv hh wmax lmax xmax omax bmax mmax umax pmax fmax mult seed =
       parametersSystemsHistoryRepasDecomperMaxRollByMExcludedSelfHighestFmaxIORepa 
         wmax lmax xmax omax bmax mmax umax pmax fmax mult seed uu vv hh
 
+amesIO :: IO (System, Histogram, Histogram)
+amesIO = 
+    do
+      csvtr <- BL.readFile "train.csv"
+      let vvcsvtr = either (\_ -> V.empty) id (Data.Csv.decode HasHeader csvtr :: Either String (V.Vector Train))
+      let aatr = llaa [(llss [(VarStr s, fw rr) | (s,fw) <- trmap],1) | rr <- V.toList vvcsvtr]
+
+      csvte <- BL.readFile "test.csv"
+      let vvcsvte = either (\_ -> V.empty) id (Data.Csv.decode HasHeader csvte :: Either String (V.Vector Test))
+      let aate = llaa [(llss [(VarStr s, fw rr) | (s,fw) <- temap],1) | rr <- V.toList vvcsvte]
+
+      let uu = sys aatr `uunion` sys aate
+
+      return (uu,aatr,aate)
+
+amesBucketedIO :: Int -> IO (System, Histogram, Histogram, Histogram)
+amesBucketedIO b = 
+    do
+      csvtr <- BL.readFile "train.csv"
+      let vvcsvtr = either (\_ -> V.empty) id (Data.Csv.decode HasHeader csvtr :: Either String (V.Vector Train))
+      let aatr = llaa [(llss [(VarStr s, fw rr) | (s,fw) <- trmap],1) | rr <- V.toList vvcsvtr]
+
+      csvte <- BL.readFile "test.csv"
+      let vvcsvte = either (\_ -> V.empty) id (Data.Csv.decode HasHeader csvte :: Either String (V.Vector Test))
+      let aate = llaa [(llss [(VarStr s, fw rr) | (s,fw) <- temap],1) | rr <- V.toList vvcsvte]
+
+      let uu = sys aatr `uunion` sys aate
+      let vv = uvars uu `minus` sgl (VarStr "Id")
+      let vvl = sgl (VarStr "SalePrice")
+      let vvk = vv `minus` vvl
+
+      let aa = (aatr `red` vvk) `add` (aate `red` vvk)
+      let vvo = llqq [w | w <- qqll vv, isOrd uu w, let u = vol uu (sgl w), u > 16]
+      let vvoz = llqq [w | w <- qqll vv, isOrd uu w, let u = vol uu (sgl w), u > 16, let rr = unit (sgl (llss [(w, ValInt 0)])), let bb = aatr `red` sgl w `mul` rr, size bb > 100]
+
+      let xx = Map.fromList $ map (\(v,ww) -> let VarStr s = v in (v, (VarStr (s ++ "B"), ww))) $ [(v, bucket 20 aa v) | v <- qqll (vvo `minus` vvoz)] ++ [(VarStr "SalePrice", bucket 20 aatr (VarStr "SalePrice"))] ++ [(v, bucket 20 aa' v) | v <- qqll vvoz, let rr = unit (sgl (llss [(v, ValInt 0)])), let bb = aa `red` sgl v `mul` rr, let aa' = trim (aa `red` sgl v `sub` bb)]
+
+      let aab = reframeb aa xx
+      let aatrb = reframeb aatr xx
+      let aateb = reframeb aate xx
+      let uub = sys aab `uunion` sys aatrb `uunion` sys aateb
+
+      return (uub,aab,aatrb,aateb)
+
 
 
