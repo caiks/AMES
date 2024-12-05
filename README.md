@@ -64,7 +64,7 @@ summation mult seed uub' dfb' hhb
 BL.writeFile ("df1.json") $ decompFudsPersistentsEncode $ decompFudsPersistent dfb'
 
 ```
-Note that if you wish to use compiled code rather than interpreted you may specify the following before loading `AMESDev` -
+If you wish to use compiled code rather than interpreted you may specify the following before loading `AMESDev` -
 ```
 :set -fobject-code
 
@@ -80,6 +80,7 @@ In this case, re-import the modules explicitly as defined in `AMESDev`, for exam
 import qualified Data.Set as Set
 import qualified Data.Map as Map
 import Alignment
+import AlignmentRepa
 import AlignmentDevRepa hiding (aahr)
 
 rp $ Set.fromList [1,2,3]
