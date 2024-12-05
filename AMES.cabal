@@ -1,0 +1,77 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           AMES
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/caiks/AMES#readme>
+homepage:       https://github.com/caiks/AMES#readme
+bug-reports:    https://github.com/caiks/AMES/issues
+author:         Cliff McCartney
+maintainer:     caiks@greenlake.co.uk
+copyright:      Cliff McCartney
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/caiks/AMES
+
+library
+  exposed-modules:
+      AMESDev
+  other-modules:
+      Paths_AMES
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      Alignment
+    , AlignmentRepa
+    , aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , bytestring
+    , cassava
+    , containers
+    , old-locale
+    , primitive
+    , random
+    , repa
+    , repa-io
+    , time
+    , vector
+    , vector-algorithms
+    , zlib
+  default-language: Haskell2010
+
+executable AMES_engine1.exe
+  main-is: AMES_engine1.hs
+  hs-source-dirs:
+      apps
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N -main-is AMES_engine1
+  build-depends:
+      AMES
+    , Alignment
+    , AlignmentRepa
+    , aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , bytestring
+    , cassava
+    , containers
+    , old-locale
+    , primitive
+    , random
+    , repa
+    , repa-io
+    , time
+    , vector
+    , vector-algorithms
+    , zlib
+  default-language: Haskell2010

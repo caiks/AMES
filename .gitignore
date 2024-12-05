@@ -21,3 +21,4 @@ cabal.project.local
 *~
 *.log
 *.exe
+stack.yaml.lock

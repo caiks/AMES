@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric, OverloadedStrings, BangPatterns, ScopedTypeVariables #-}
 
+module AMES_engine1 ( main) where
 
 import Control.Monad
 import Control.Monad.ST
